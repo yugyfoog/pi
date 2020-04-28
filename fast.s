@@ -5,9 +5,20 @@ fast_set:
 	neg	%rsi
 1:	mov	%rdx,(%rdi,%rsi,8)
 	inc	%rsi
-	jne	1b
+	jnz	1b
 	ret
 
+	.align	16
+	.globl	fast_copy
+fast_copy:
+	lea	(%rdi,%rdx,8),%rdi
+	lea	(%rsi,%rdx,8),%rsi
+	neg	%rdx
+1:	mov	(%rsi,%rdx,8),%rax
+	mov	%rax,(%rdi,%rdx,8)
+	inc	%rdx
+	jnz	1b
+	ret
 	
 	.align	16
 	.globl	fast_multiply
